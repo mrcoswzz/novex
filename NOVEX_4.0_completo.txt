@@ -134,14 +134,43 @@ local function panel(parent, x, y, w, h, r)
         Position = UDim2.fromOffset(x, y),
         Size = UDim2.fromOffset(w, h),
         BackgroundColor3 = C.panel,
-        BackgroundTransparency = 0.1,
+        BackgroundTransparency = 0.08,
         BorderSizePixel = 0,
         Active = true,
     }, parent)
     corner(f, r or 22)
-    stroke(f, C.white, 0.9)
+    
+    -- Borda com brilho de vidro no topo de cada widget
+    local st = stroke(f, C.white, 0.75, 1.3)
+    create("UIGradient", {
+        Rotation = 90,
+        Transparency = NumberSequence.new({
+            NumberSequenceKeypoint.new(0, 0.1),
+            NumberSequenceKeypoint.new(0.45, 0.85),
+            NumberSequenceKeypoint.new(1, 0.95)
+        })
+    }, st)
+
+    -- Luz ambiente azulada bem sutil no topo
+    local glow = create("Frame", {
+        Size = UDim2.new(1, 0, 0, 55),
+        BackgroundColor3 = C.blue,
+        BackgroundTransparency = 0.92,
+        BorderSizePixel = 0,
+        ZIndex = 0,
+    }, f)
+    corner(glow, r or 22)
+    create("UIGradient", {
+        Rotation = 90,
+        Transparency = NumberSequence.new({
+            NumberSequenceKeypoint.new(0, 0),
+            NumberSequenceKeypoint.new(1, 1)
+        })
+    }, glow)
+
     return f
 end
+
 
 local function scroller(parent, x, y, w, h, horizontal)
     return create("ScrollingFrame", {
