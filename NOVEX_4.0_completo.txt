@@ -50,7 +50,7 @@ end
 ------------------------------------------------------------------
 -- Cores e funções de ajuda
 ------------------------------------------------------------------
-local C = {
+
 local C = {
     panel = Color3.fromRGB(13, 15, 22),      -- Fundo mais profundo e elegante
     card = Color3.fromRGB(22, 25, 36),       -- Contraste nítido com o painel
